@@ -5,7 +5,7 @@ import { MdHome } from "react-icons/md";
 
 function Header() {
     return (
-        
+        <div className="shadow-sm border-b sticky top-0 bg-white z-30">
           <div className="mx-4 xl:mx-auto flex items-center justify-between max-w-6xl">
             <div className="h-24 w-24 relative hidden lg:inline-grid cursor-pointer">
                 <Image
@@ -30,6 +30,7 @@ function Header() {
                 <FaPlus className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200"/>
             <Image src="https://img.freepik.com/premium-photo/graphic-designer-digital-avatar-generative-ai_934475-9292.jpg" alt="user avatar" width={40} className="hidden md:inline-flex rounded-full h-10 cursor-pointer" height={40}/>
             </div>
+          </div>
           </div>
        
     )

@@ -1,8 +1,9 @@
 import Image from "next/image"
+import { CiSearch } from "react-icons/ci";
 
 function Header() {
     return (
-        <div>
+        
           <div className="flex items-center justify-between max-w-6xl">
             <div className="h-24 w-24 relative hidden lg:inline-grid cursor-pointer">
                 <Image
@@ -18,9 +19,13 @@ function Header() {
                 />
                 
             </div>
+            <div className="relative mt-1">
+                <div className="absolute top-2 left-2"><CiSearch className="h-5 text-gray-500"/></div>
+                <input type="text" placeholder="Search" className="pl-10 text-sm rounded-md focus:ring-black focus:border-black border-gray-500 bg-gray-50"/>
+            </div>
             <h1>Right side</h1>
           </div>
-        </div>
+       
     )
 }
 

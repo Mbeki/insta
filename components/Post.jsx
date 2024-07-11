@@ -1,5 +1,8 @@
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
+import { FaRegHeart } from "react-icons/fa";
+import { BsChatDots } from "react-icons/bs";
+import { FaRegBookmark } from "react-icons/fa6";
 
 function Post({post}) {
     const {username,img,caption,userImg,id} = post;
@@ -12,6 +15,12 @@ function Post({post}) {
                  
             </div>
             <Image src={img} alt='posted' width={256} height={256}/>
+            <div className="flex justify-between items-center px-4 pt-4">
+                <div className="flex space-x-4" ><FaRegHeart className="btn" size={28}/>
+                <BsChatDots className="btn" size={28}/>
+                </div>
+                <FaRegBookmark className="btn" size={28}/>
+            </div>
         </div>
     )
 }

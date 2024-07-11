@@ -15,7 +15,8 @@ function Post({post}) {
                 <BsThreeDots />
                  
             </div>
-            <Image src={img} alt='posted' width={256} height={256}/>
+            <Image src={img} alt='posted' sizes="100vw" className="w-full object-cover" width={0} height={0} style={{ width: '100%' }}/>
+            {/* <img src={img} alt="posted" className="w-full object-cover"/> */}
             {/* Post buttons */}
             <div className="flex justify-between items-center px-4 pt-4">
                 <div className="flex space-x-4" >

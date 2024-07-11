@@ -26,9 +26,9 @@ function Header() {
                 <input type="text" placeholder="Search" className="pl-10 text-sm rounded-md focus:ring-black focus:border-black border-gray-500 bg-gray-50"/>
             </div>
             <div className=" flex space-x-4 items-center">
-                <MdHome size={24} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200"/>
+                <MdHome size={24} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200 hidden md:inline-flex"/>
                 <FaPlus className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200"/>
-            <Image src="https://img.freepik.com/premium-photo/graphic-designer-digital-avatar-generative-ai_934475-9292.jpg" alt="user avatar" width={40} className="hidden md:inline-flex rounded-full h-10 cursor-pointer" height={40}/>
+                <Image src="https://img.freepik.com/premium-photo/graphic-designer-digital-avatar-generative-ai_934475-9292.jpg" alt="user avatar" width={40} className=" rounded-full h-10 cursor-pointer" height={40}/>
             </div>
           </div>
           </div>

@@ -7,9 +7,11 @@ import { MdHome } from "react-icons/md";
 import { useSession,signIn, signOut } from "next-auth/react";
 import { useRecoilState } from "recoil";
 import { modalState } from "@/atom/modalAtom";
+import { useRouter } from "next/navigation";
 
  function Header() {
     const {data:session} = useSession();
+    const router = useRouter()
     const [open,setOpen] = useRecoilState(modalState)
     return (
         <div className="shadow-sm border-b sticky top-0 bg-white z-30">
@@ -18,6 +20,7 @@ import { modalState } from "@/atom/modalAtom";
                 <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png?20160616034027"
                 alt="Instagram logo"  fill sizes={0} className="object-contain"
+                onClick={()=>router.push("/")}
                 />
                 
             </div>
@@ -25,6 +28,7 @@ import { modalState } from "@/atom/modalAtom";
                 <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/800px-Instagram_logo_2022.svg.png"
                 alt="Instagram logo" fill sizes={0} className="object-contain"
+                onClick={()=>router.push("/")}
                 />
                 
             </div>
@@ -33,7 +37,7 @@ import { modalState } from "@/atom/modalAtom";
                 <input type="text" placeholder="Search" className="pl-10 text-sm rounded-md focus:ring-black focus:border-black border-gray-500 bg-gray-50"/>
             </div>
             <div className=" flex space-x-4 items-center">
-                <MdHome size={24} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200 hidden md:inline-flex"/>
+                <MdHome size={24} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200 hidden md:inline-flex" onClick={()=>router.push("/")}/>
                 {session? (
                     <>
                     <FaPlus onClick={()=>setOpen(true)} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200"/>

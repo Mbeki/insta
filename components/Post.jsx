@@ -4,8 +4,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { FaRegBookmark } from "react-icons/fa6";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
+import { useSession } from "next-auth/react";
 
 function Post({post}) {
+    const {data:session} =useSession()
     const {username,image,caption,profileImg,id} = post;
     return (
         <div className="bg-white my-7 border rounded-md">
@@ -18,6 +20,7 @@ function Post({post}) {
             <Image src={image} alt='posted' sizes="100vw" className="w-full object-cover" width={0} height={0} style={{ width: '100%' }}/>
             {/* <image src={image} alt="posted" className="w-full object-cover"/> */}
             {/* Post buttons */}
+            {session &&  <>
             <div className="flex justify-between items-center px-4 pt-4">
                 <div className="flex space-x-4" >
                     <FaRegHeart className="btn" size={28}/>
@@ -25,14 +28,16 @@ function Post({post}) {
                 </div>
                 <FaRegBookmark className="btn" size={28}/>
             </div>
+            </>}
+           
             {/* Post comments */}
             <p className="p-5 truncated"><span className="mr-2 font-bold">{username}</span>{caption}</p>
             {/* Post input box */}
-            <form className="flex items-center p-4">
+            {session && <form className="flex items-center p-4">
                 <HiOutlineEmojiHappy size={28}/> 
                 <input className="border-none focus:ring-0 flex-1"type="text" placeholder="Enter your comment..."/>
                 <button className="text-blue-400 font-bold">Post</button>
-                </form>
+            </form>}
             
         </div>
     )

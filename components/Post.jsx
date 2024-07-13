@@ -6,17 +6,17 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 
 function Post({post}) {
-    const {username,img,caption,userImg,id} = post;
+    const {username,image,caption,profileImg,id} = post;
     return (
         <div className="bg-white my-7 border rounded-md">
             <div className="flex items-center p-5">
-                <Image src={userImg} alt={username} width={48} height={48} className="rounded-full object-cover border p-1 mr-3"/>
+                <Image src={profileImg} alt={username} width={48} height={48} className="rounded-full object-cover border p-1 mr-3"/>
                 <p className="font-bold flex-1">{username}</p>
                 <BsThreeDots />
                  
             </div>
-            <Image src={img} alt='posted' sizes="100vw" className="w-full object-cover" width={0} height={0} style={{ width: '100%' }}/>
-            {/* <img src={img} alt="posted" className="w-full object-cover"/> */}
+            <Image src={image} alt='posted' sizes="100vw" className="w-full object-cover" width={0} height={0} style={{ width: '100%' }}/>
+            {/* <image src={image} alt="posted" className="w-full object-cover"/> */}
             {/* Post buttons */}
             <div className="flex justify-between items-center px-4 pt-4">
                 <div className="flex space-x-4" >

@@ -1,11 +1,16 @@
+'use client'
 import MiniProfile from "./MiniProfile"
 import Posts from "./Posts"
 import Stories from "./Stories"
 import Suggestions from "./Suggestions"
+import { getServerSession } from "next-auth"
+import { useSession } from "next-auth/react"
 
-function Feed() {
+ function Feed() {
+    // const session = getServerSession();
+    const {data:session} = useSession()
     return (
-        <main className="grid grid-cols-1 md:grid-cols-3 md:max-w-6xl mx-auto">
+        <main className={`grid ${session?"grid-cols-1 md:grid-cols-3 md:max-w-6xl mx-auto":"grid-cols-1 md:grid-cols-2 md:max-w-3xl mx-auto"} `}>
             <section className="md:col-span-2">
                 <Stories/>
                 <Posts/>
@@ -15,7 +20,7 @@ function Feed() {
                     {/* Mini-profile */}
                     <MiniProfile/>
                     {/* Suggestions */}
-                    <Suggestions/>
+                    {session && <Suggestions/>}
                 </div>
             </section>
             

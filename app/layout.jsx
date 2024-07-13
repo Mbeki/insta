@@ -4,6 +4,9 @@ import Header from "@/components/Header";
 import { getServerSession } from "next-auth";
 // import SessionWrapper from "@/components/SessionWrapper";
 import SessionProvider from "@/components/SessionProvider"
+import UploadModal from "@/components/UploadModal";
+// import { RecoilRoot } from "recoil";
+import RecoilProvider from "@/components/RecoilProvider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,10 +24,14 @@ export default async function RootLayout({ children }) {
       
       <body className={inter.className}>
       <SessionProvider session={session}>
+      <RecoilProvider>
         <Header/>
         {children}
+        <UploadModal/>
+        </RecoilProvider>
       </SessionProvider>
       </body>
+      
      
     </html>
     

@@ -5,9 +5,12 @@ import { FaPlus } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 // import { getServerSession } from "next-auth";
 import { useSession,signIn, signOut } from "next-auth/react";
+import { useRecoilState } from "recoil";
+import { modalState } from "@/atom/modalAtom";
 
  function Header() {
     const {data:session} = useSession();
+    const [open,setOpen] = useRecoilState(modalState)
     return (
         <div className="shadow-sm border-b sticky top-0 bg-white z-30">
           <div className="mx-4 xl:mx-auto flex items-center justify-between max-w-6xl">
@@ -33,7 +36,7 @@ import { useSession,signIn, signOut } from "next-auth/react";
                 <MdHome size={24} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200 hidden md:inline-flex"/>
                 {session? (
                     <>
-                    <FaPlus className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200"/>
+                    <FaPlus onClick={()=>setOpen(true)} className="h-12 cursor-pointer hover:scale-125 transition-transform duration-200"/>
                     <Image src={session?.user?.image } alt="user avatar" width={40} className=" rounded-full h-10 cursor-pointer" height={40} onClick={()=>signOut()}/>
                     </>
                 ):(

@@ -3,10 +3,11 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { FaRegBookmark } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import Moment from "react-moment";
 
@@ -14,6 +15,19 @@ function Post({post,id}) {
     const {data:session} =useSession()
     const [comment,setComment] = useState("")
     const [comments,setComments] = useState([])
+    const [likes,setLikes] = useState([])
+    const [hasLiked,setHasLiked] = useState(false)
+
+    useEffect(()=>{
+        const unsubscribe = onSnapshot(
+            collection(db,"posts",id,"likes"),(snapshot)=>{
+                setLikes(snapshot.docs)
+                
+            }
+        );
+        return ()=>unsubscribe();
+    },[id])
+   
     useEffect(()=>{
         const unsubscribe = onSnapshot(
             query(collection(db,"posts",id,"comments"),orderBy("timestamp","desc")),(snapshot)=>{
@@ -21,8 +35,27 @@ function Post({post,id}) {
             }
         );
         
-        return unsubscribe;
+        return ()=>unsubscribe();
     },[id])
+   
+
+    useEffect(()=>{
+        setHasLiked(
+            likes.findIndex(like=> like.id === session?.user?.uid) !== -1
+        )
+        
+    },[likes,session.user.uid])
+   
+    async function likePost() {
+        if(hasLiked){
+            await deleteDoc(doc(db,"posts",id,"likes",session.user.uid))
+        } else {
+            await setDoc(doc(db,"posts",id,"likes",session.user.uid),{
+                username: session.user.username,
+            })
+        }
+        
+    }
     const {username,image,caption,profileImg} = post;
 
     async function sendComment(event) {
@@ -51,7 +84,11 @@ function Post({post,id}) {
             {session &&  <>
             <div className="flex justify-between items-center px-4 pt-4">
                 <div className="flex space-x-4" >
-                    <FaRegHeart className="btn" size={28}/>
+                    {hasLiked ? (<FaHeart onClick={likePost} className="btn text-red-400 " size={28}/>
+                        ):(
+                        <FaRegHeart onClick={likePost} className="btn" size={28}/>)}
+                    
+                    
                     <BsChatDots className="btn" size={28}/>
                 </div>
                 <FaRegBookmark className="btn" size={28}/>

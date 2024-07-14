@@ -14,7 +14,7 @@ function Posts() {
             setPosts(snapshot.docs)
             }
         );
-        return unsubscribe;
+        return ()=>unsubscribe();
     },[])
    
    

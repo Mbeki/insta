@@ -5,10 +5,27 @@ import { BsChatDots } from "react-icons/bs";
 import { FaRegBookmark } from "react-icons/fa6";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/firebase";
 
-function Post({post}) {
+function Post({post,id}) {
     const {data:session} =useSession()
-    const {username,image,caption,profileImg,id} = post;
+    const [comment,setComment] = useState("")
+    const {username,image,caption,profileImg} = post;
+
+    async function sendComment(event) {
+        console.log(session.user)
+        event.preventDefault()
+        const commentToSend = comment;
+        setComment("")
+        await addDoc(collection(db,'posts',id,'comments'),{
+            comment:commentToSend,
+            username: session.user.username,
+            userImage: session.user.image,
+            timestamp: serverTimestamp(),
+        })
+    }
     return (
         <div className="bg-white my-7 border rounded-md">
             <div className="flex items-center p-5">
@@ -35,8 +52,15 @@ function Post({post}) {
             {/* Post input box */}
             {session && <form className="flex items-center p-4">
                 <HiOutlineEmojiHappy size={28}/> 
-                <input className="border-none focus:ring-0 flex-1"type="text" placeholder="Enter your comment..."/>
-                <button className="text-blue-400 font-bold">Post</button>
+                <input 
+                    value={comment} 
+                    onChange={(event)=>setComment(event.target.value)} 
+                    className="border-none focus:ring-0 flex-1"type="text" placeholder="Enter your comment..."/>
+                <button 
+                type="submit"
+                    onClick={sendComment}
+                    disabled={!comment.trim()} 
+                    className="text-blue-400 font-bold disabled:text-blue-200">Post</button>
             </form>}
             
         </div>

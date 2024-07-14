@@ -4,7 +4,6 @@ import { useRecoilState } from "recoil"
 import Modal from "react-modal"
 import { MdOutlineCameraAlt } from "react-icons/md";
 import { useRef, useState } from "react";
-import { setSeed } from "minifaker";
 import Image from "next/image";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db, storage } from "@/firebase";

@@ -44,7 +44,7 @@ function Post({post,id}) {
             likes.findIndex(like=> like.id === session?.user?.uid) !== -1
         )
         
-    },[likes,session.user.uid])
+    },[likes,session])
    
     async function likePost() {
         if(hasLiked){
